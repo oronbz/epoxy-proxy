@@ -1,6 +1,3 @@
-# epoxy
-Epoxy is a reverse proxy, that should take off the load from any given mobile client.
-
 Epoxy Proxy
 ===========
 
