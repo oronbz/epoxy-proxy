@@ -7,11 +7,23 @@ var fetchController = {
       Age: 28
     }*/
 
+    var batch = [
+      {url: 'https://safe-inlet-8105.herokuapp.com/payments'},
+      {url: 'https://safe-inlet-8105.herokuapp.com/plans'}
+    ];
+
     var options = {
-      strategy: 'combined'
+      strategy: 'appended',
+      errors: 'replace'
     };
 
-    fetcher.fetch(null, options, function(err, results) {
+    fetcher.fetch(batch, options, function(err, results) {
+      if (err) {
+        res.sendStatus(400);
+        // TODO: log it
+        console.error(err);
+        return;
+      }
       res.json(results);
     });
     

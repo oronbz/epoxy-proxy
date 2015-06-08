@@ -1,6 +1,4 @@
 var request = require('request');
-var urls = ['https://safe-inlet-8105.herokuapp.com/payments',
-            'https://safe-inlet-8105.herokuapp.com/plans'];
 
 /*
   batch: [{
@@ -23,7 +21,7 @@ function fetch(batch, options, next) {
 
   // defaults
   var errors = 'replace';
-  var strategy = 'combined';
+  var strategy = 'appended';
 
   if (options) {
     // override defaults
@@ -49,21 +47,22 @@ function fetch(batch, options, next) {
   }
 
 
-  for (var i = 0;i<urls.length;i++) {
-    request(urls[i], function(err, res, body) {
+  for (var i = 0;i<batch.length;i++) {
+    var batchItem = batch[i];
+
+    request(batchItem.url, function(err, res, body) {
       if (err) {
         // handle errors
       }
       if (!err && res.statusCode == 200) {
         var result = JSON.parse(body);
         pushResult(resultsWrapper, result, strategy);
-        console.log(resultsWrapper.results);
       }
 
       completed++;
 
       // finished all requests
-      if (completed === urls.length) {
+      if (completed === batch.length) {
         next(null, resultsWrapper.results);
       }
     })
