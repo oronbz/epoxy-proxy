@@ -1,0 +1,16 @@
+{
+  "name": "epoxy",
+  "version": "1.0.0",
+  "description": "Epoxy is a reverse proxy, that should take off the load from any given mobile client.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Oron Ben Zvi",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.12.4",
+    "express": "^4.12.4",
+    "winston": "^1.0.0"
+  }
+}
