@@ -49,7 +49,7 @@ function fetch(urls, options, next) {
 
     request({uri: url, timeout: timeout}, function(err, res, body) {
       // assumption: invalid urls, connection errors, timeouts ...
-      // ... and code != 200 is handled with chosen handler
+      // ... and code != 200 are handled with chosen errors option
       if (err || res.statusCode !== 200) {
         isError = true;
         addResult(resultsWrapper, 'failed', strategy);
@@ -64,10 +64,8 @@ function fetch(urls, options, next) {
           return next(null, resultsWrapper.results);
         }
         
-      }
-      
       // assumption: successful fetch returns 
-      if (!err && res.statusCode == 200) {
+      } else {
         var contentType = res.headers['content-type'];
         parseBody(body, contentType, function(err, result) {
           addResult(resultsWrapper, result, strategy);
