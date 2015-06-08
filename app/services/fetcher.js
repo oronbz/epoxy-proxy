@@ -1,27 +1,24 @@
 var request = require('request');
+var xml2js = require('xml2js');
 
 /*
-  batch: [{
-    url: string,
-    method(optional): string['GET(default)', 'POST', 'PUT'...],
-    body(optional): object,
-    timeout: number
-  }]
-
   options(optional): {
     errors(optional): string['replace'(default), 'fail_any'],
-    strategy(optional): string['appended'(deafult), 'combined'] 
+    strategy(optional): string['appended'(deafult), 'combined'],
+    timeout(optionl): number(ms)
   }
 */
-function fetch(batch, options, next) {
+function fetch(urls, options, next) {
   var resultsWrapper = {
     results: null
   };
   var completed = 0;
+  var isError = true;
 
   // defaults
   var errors = 'replace';
   var strategy = 'appended';
+  var timeout = null;
 
   if (options) {
     // override defaults
@@ -44,32 +41,69 @@ function fetch(batch, options, next) {
 
       strategy = options.strategy; 
     }
+    timeout = options.timeout || null;
   }
 
+  for (var i = 0;i<urls.length;i++) {
+    var url = urls[i];
 
-  for (var i = 0;i<batch.length;i++) {
-    var batchItem = batch[i];
+    request({uri: url, timeout: timeout}, function(err, res, body) {
+      // assumption: invalid urls, connection errors, timeouts ...
+      // ... and code != 200 is handled with chosen handler
+      if (err || res.statusCode !== 200) {
+        isError = true;
+        addResult(resultsWrapper, 'failed', strategy);
 
-    request(batchItem.url, function(err, res, body) {
-      if (err) {
-        // handle errors
+        completed++;
+
+        // finished all requests
+        if (completed === urls.length) {
+          if (errors === 'fail_any' && isError) {
+            return next(null, 'failed');
+          }
+          return next(null, resultsWrapper.results);
+        }
+        
       }
+      
+      // assumption: successful fetch returns 
       if (!err && res.statusCode == 200) {
-        var result = JSON.parse(body);
-        pushResult(resultsWrapper, result, strategy);
-      }
+        var contentType = res.headers['content-type'];
+        parseBody(body, contentType, function(err, result) {
+          addResult(resultsWrapper, result, strategy);
 
-      completed++;
+          completed++;
 
-      // finished all requests
-      if (completed === batch.length) {
-        next(null, resultsWrapper.results);
+          // finished all requests
+          if (completed === urls.length) {
+            return next(null, resultsWrapper.results);
+          }
+        });
       }
     })
   }
 }
 
-function pushResult(resultsWrapper, result, strategy) {
+// parse body by the correct content type
+// will return string if neither JSON nor XML
+// assumption: epoxy will always return json (even if resource service return xml)
+function parseBody(body, contentType, next) {
+  switch (contentType) {
+    case 'application/json':
+      return next(null, JSON.parse(body));
+    case 'text/xml':
+    case 'application/xml':
+      xml2js.parseString(body, function(err, result) {
+        return next(err, result);
+      });
+      break;
+    default:
+      return next(null, body);
+  }
+}
+
+// add a result to results based on aggregation strategy
+function addResult(resultsWrapper, result, strategy) {
 
   // initialize results based on strategy
   if (!resultsWrapper.results) {
@@ -83,12 +117,16 @@ function pushResult(resultsWrapper, result, strategy) {
     }
   }
 
-  // push result based on strategy
+  // add result based on strategy
   switch (strategy) {
     case 'appended':
       resultsWrapper.results.push(result);
       return;
     case 'combined':
+      // we cannot combine if the result is string
+      if (typeof(result) === 'string') {
+        return;
+      }
       for (var prop in result) {
         resultsWrapper.results[prop] = result[prop];
       }
