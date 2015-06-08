@@ -1,3 +1,6 @@
+Epoxy Proxy
+===========
+
 Quick Usage Guide
 =================
     git clone https://github.com/oronbz/epoxy
@@ -13,8 +16,8 @@ http://localhost:3000/api/fetch/Ww0KICAgImh0dHBzOi8vc2FmZS1pbmxldC04MTA1Lmhlcm9r
  
 http://localhost:3000/api/fetch/Ww0KICAgImh0dHBzOi8vc2FmZS1pbmxldC04MTA1Lmhlcm9rdWFwcC5jb20vcGF5b3V0IiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BheW1lbnRzIiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BsYW5zIiwNCiAgICJodHRwOi8vd3d3Lnczc2Nob29scy5jb20veG1sL25vdGUueG1sIg0KXQ/appended
 
-Epoxy Proxy
-===========
+Introduction
+============
 
 For mobile clients (and networks), multiple requests cost a lot of CPU time, data, and battery.
 
