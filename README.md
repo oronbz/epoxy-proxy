@@ -1,3 +1,18 @@
+Quick Usage Guide
+=================
+    git clone https://github.com/oronbz/epoxy
+    cd epoxy
+    npm install
+    node server.js
+
+Example Urls
+============
+http://localhost:3000/api/fetch/Ww0KICAgImh0dHBzOi8vc2FmZS1pbmxldC04MTA1Lmhlcm9rdWFwcC5jb20vcGF5b3V0IiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BheW1lbnRzIiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BsYW5zIiwNCiAgICJodHRwOi8vd3d3Lnczc2Nob29scy5jb20veG1sL25vdGUueG1sIg0KXQ/appended?errors=replace&timeout=300
+ 
+http://localhost:3000/api/fetch/Ww0KICAgImh0dHBzOi8vc2FmZS1pbmxldC04MTA1Lmhlcm9rdWFwcC5jb20vcGF5b3V0IiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BheW1lbnRzIiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BsYW5zIiwNCiAgICJodHRwOi8vd3d3Lnczc2Nob29scy5jb20veG1sL25vdGUueG1sIg0KXQ/combined?errors=fail_any&timeout=2000
+ 
+http://localhost:3000/api/fetch/Ww0KICAgImh0dHBzOi8vc2FmZS1pbmxldC04MTA1Lmhlcm9rdWFwcC5jb20vcGF5b3V0IiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BheW1lbnRzIiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BsYW5zIiwNCiAgICJodHRwOi8vd3d3Lnczc2Nob29scy5jb20veG1sL25vdGUueG1sIg0KXQ/appended
+
 Epoxy Proxy
 ===========
 
