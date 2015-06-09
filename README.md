@@ -3,18 +3,21 @@ Epoxy Proxy
 
 Quick Usage Guide
 =================
-    git clone https://github.com/oronbz/epoxy
-    cd epoxy
-    npm install
-    node server.js
+`git clone https://github.com/oronbz/epoxy`
+`cd epoxy`
+`npm install`
+`node server.js`
 
 Example Urls
 ============
-http://localhost:3000/api/fetch/Ww0KICAgImh0dHBzOi8vc2FmZS1pbmxldC04MTA1Lmhlcm9rdWFwcC5jb20vcGF5b3V0IiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BheW1lbnRzIiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BsYW5zIiwNCiAgICJodHRwOi8vd3d3Lnczc2Nob29scy5jb20veG1sL25vdGUueG1sIg0KXQ/appended?errors=replace&timeout=300
+
+`http://localhost:3000/api/fetch/Ww0KICAgImh0dHBzOi8vc2FmZS1pbmxldC04MTA1Lmhlcm9rdWFwcC5jb20vcGF5b3V0IiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BheW1lbnRzIiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BsYW5zIiwNCiAgICJodHRwOi8vd3d3Lnczc2Nob29scy5jb20veG1sL25vdGUueG1sIg0KXQ/appended`
+
+`http://localhost:3000/api/fetch/Ww0KICAgImh0dHBzOi8vc2FmZS1pbmxldC04MTA1Lmhlcm9rdWFwcC5jb20vcGF5b3V0IiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BheW1lbnRzIiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BsYW5zIiwNCiAgICJodHRwOi8vd3d3Lnczc2Nob29scy5jb20veG1sL25vdGUueG1sIg0KXQ/appended?errors=replace&timeout=300`
  
-http://localhost:3000/api/fetch/Ww0KICAgImh0dHBzOi8vc2FmZS1pbmxldC04MTA1Lmhlcm9rdWFwcC5jb20vcGF5b3V0IiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BheW1lbnRzIiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BsYW5zIiwNCiAgICJodHRwOi8vd3d3Lnczc2Nob29scy5jb20veG1sL25vdGUueG1sIg0KXQ/combined?errors=fail_any&timeout=2000
+`http://localhost:3000/api/fetch/Ww0KICAgImh0dHBzOi8vc2FmZS1pbmxldC04MTA1Lmhlcm9rdWFwcC5jb20vcGF5b3V0IiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BheW1lbnRzIiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BsYW5zIiwNCiAgICJodHRwOi8vd3d3Lnczc2Nob29scy5jb20veG1sL25vdGUueG1sIg0KXQ/combined?errors=fail_any&timeout=2000`
  
-http://localhost:3000/api/fetch/Ww0KICAgImh0dHBzOi8vc2FmZS1pbmxldC04MTA1Lmhlcm9rdWFwcC5jb20vcGF5b3V0IiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BheW1lbnRzIiwNCiAgICJodHRwczovL3NhZmUtaW5sZXQtODEwNS5oZXJva3VhcHAuY29tL3BsYW5zIiwNCiAgICJodHRwOi8vd3d3Lnczc2Nob29scy5jb20veG1sL25vdGUueG1sIg0KXQ/appended
+
 
 Introduction
 ============
@@ -115,7 +118,7 @@ These will be a JSON array, and base64 encoded.
 Example requests:
 
 
-GET http://epoxy.com/fetch/<base64>/combined?errors=[fail_any]&timeout=300
+GET http://epoxy.com/fetch/[base64]/combined?errors=[fail_any]&timeout=300
 
 1. This request will fetch a base64 encoded JSON array of URLs.
 2. It will combine requests
@@ -123,67 +126,9 @@ GET http://epoxy.com/fetch/<base64>/combined?errors=[fail_any]&timeout=300
 4. It will fail if any of the resource services fail
 
 
-GET http://epoxy.com/fetch/<base64>/appended?errors=[replace]
+GET http://epoxy.com/fetch/[base64]/appended?errors=[replace]
 
 1. This request will fetch a base64 encoded JSON array of URLs.
 2. It will append requests
 3. It will NOT timeout
 4. It will replace any error response from resource services with "failed"
-
-
-Resource Service Endpoints
-==========================
-
-You will use the following as resource services:
-
-0. https://safe-inlet-8105.herokuapp.com -- you are looking at it. do not use it.
-
-
-1. https://safe-inlet-8105.herokuapp.com/payments
-2. https://safe-inlet-8105.herokuapp.com/plans
-3. https://safe-inlet-8105.herokuapp.com/payout  (note: may fail from time to time)
-4. https://safe-inlet-8105.herokuapp.com/feed    (note: may be slow from time to time)
-
-
-
-Submission
-==========
-
-Scope:
-
-* The service should be around 50-100 LOC (using a reasonable amount of libraries).
-* The amount of time invested should not be more than 3-4 hours
-
-If you find yourself going beyond this scope, reconsider your approach, or contact us
-for assistance and direction.
-
-
-Concerns:
-
-* Your service should auto detect content types and parse them
-* Your service should merge results based on selected strategy
-* The service's interface should be meaningful, aesthetic, and you should be able
-  to reason about it (concerns such as CDN, caching, REST, API)
-* Your design should be generic enough where it matters (hint: content types) but
-  still simple and pragmatic (no over engineering!)
-* You are free (and encouraged) to use any 3rd party library that makes things
-  happen for you
-
-
-You are free to submit your working Epoxy Proxy in ANY of these tech stacks:
-
-* JVM - Java (no J2EE please)
-* JVM - Clojure  [[Bonus!]]
-* .NET
-* Ruby           [[Event Machine - Bonus!]]
-* Node.js        [[Bonus!]]
-* Go             [[Bonus!]]
-
-
-Please submit:
-
-* Your results (zip with source, or bitbucket/github repo) to dotan@como.com
-* Any engineering reasoning and assumption you made while building it
-
-
-Good luck!
