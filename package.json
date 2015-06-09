@@ -4,7 +4,7 @@
   "description": "Epoxy is a reverse proxy, that should take off the load from any given mobile client.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Oron Ben Zvi",
   "license": "MIT",
