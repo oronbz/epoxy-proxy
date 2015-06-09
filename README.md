@@ -1,6 +1,8 @@
 Epoxy Proxy
 ===========
 
+[![Build status](https://travis-ci.org/oronbz/epoxy.svg?branch=master)](https://travis-ci.org/request/request)
+
 Quick Usage Guide
 =================
 `git clone https://github.com/oronbz/epoxy`
