@@ -4,9 +4,13 @@ Epoxy Proxy
 Quick Usage Guide
 =================
 `git clone https://github.com/oronbz/epoxy`
+
 `cd epoxy`
+
 `npm install`
+
 `node server.js`
+
 
 Example Urls
 ============
