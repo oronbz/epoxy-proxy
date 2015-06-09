@@ -1,7 +1,7 @@
 Epoxy Proxy
 ===========
 
-[![Build status](https://travis-ci.org/oronbz/epoxy.svg?branch=master)](https://travis-ci.org/request/request)
+[![Build Status](https://travis-ci.org/oronbz/epoxy.svg?branch=master)](https://travis-ci.org/oronbz/epoxy)
 
 Quick Usage Guide
 =================
