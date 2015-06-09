@@ -13,7 +13,7 @@ function fetch(urls, options, next) {
     results: null
   };
   var completed = 0;
-  var isError = true;
+  var isError = false;
 
   // defaults
   var errors = 'replace';
@@ -74,6 +74,9 @@ function fetch(urls, options, next) {
 
           // finished all requests
           if (completed === urls.length) {
+            if (errors === 'fail_any' && isError) {
+              return next(null, 'failed');
+            }
             return next(null, resultsWrapper.results);
           }
         });
@@ -121,7 +124,7 @@ function addResult(resultsWrapper, result, strategy) {
       resultsWrapper.results.push(result);
       return;
     case 'combined':
-      // we cannot combine if the result is string
+      // combine is for objects so we cannot combine if the result is string
       if (typeof(result) === 'string') {
         return;
       }
