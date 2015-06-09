@@ -45,30 +45,15 @@ function fetch(urls, options, next) {
   }
 
   for (var i = 0;i<urls.length;i++) {
-    var url = urls[i];
-
-    request({uri: url, timeout: timeout}, function(err, res, body) {
-      // assumption: invalid urls, connection errors, timeouts ...
-      // ... and code != 200 are handled with chosen errors option
-      if (err || res.statusCode !== 200) {
-        isError = true;
-        addResult(resultsWrapper, 'failed', strategy);
-
-        completed++;
-
-        // finished all requests
-        if (completed === urls.length) {
-          if (errors === 'fail_any' && isError) {
-            return next(null, 'failed');
-          }
-          return next(null, resultsWrapper.results);
-        }
-        
-      // assumption: successful fetch returns 
-      } else {
-        var contentType = res.headers['content-type'];
-        parseBody(body, contentType, function(err, result) {
-          addResult(resultsWrapper, result, strategy);
+    // to preserve index after callback
+    (function(i) {
+      var url = urls[i];
+      request({uri: url, timeout: timeout}, function(err, res, body) {
+        // assumption: invalid urls, connection errors, timeouts ...
+        // ... and code != 200 are handled with chosen errors option
+        if (err || res.statusCode !== 200) {
+          isError = true;
+          addResult(resultsWrapper, 'failed', i, strategy);
 
           completed++;
 
@@ -79,9 +64,26 @@ function fetch(urls, options, next) {
             }
             return next(null, resultsWrapper.results);
           }
-        });
-      }
-    })
+          
+        // assumption: successful fetch returns 
+        } else {
+          var contentType = res.headers['content-type'];
+          parseBody(body, contentType, function(err, result) {
+            addResult(resultsWrapper, result, i, strategy);
+
+            completed++;
+
+            // finished all requests
+            if (completed === urls.length) {
+              if (errors === 'fail_any' && isError) {
+                return next(null, 'failed');
+              }
+              return next(null, resultsWrapper.results);
+            }
+          });
+        }
+      })
+    }(i));
   }
 }
 
@@ -104,7 +106,7 @@ function parseBody(body, contentType, next) {
 }
 
 // add a result to results based on aggregation strategy
-function addResult(resultsWrapper, result, strategy) {
+function addResult(resultsWrapper, result, index, strategy) {
 
   // initialize results based on strategy
   if (!resultsWrapper.results) {
@@ -121,7 +123,7 @@ function addResult(resultsWrapper, result, strategy) {
   // add result based on strategy
   switch (strategy) {
     case 'appended':
-      resultsWrapper.results.push(result);
+      resultsWrapper.results[index] = (result);
       return;
     case 'combined':
       // combine is for objects so we cannot combine if the result is string
